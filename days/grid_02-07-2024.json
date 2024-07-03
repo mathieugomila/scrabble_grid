@@ -1,0 +1,62 @@
+{
+  "criterias": [
+    {
+      "contains": "a"
+    },
+    {
+      "ends_with": "a"
+    },
+    {
+      "ends_with": "b"
+    },
+    {
+      "starts_with": "a"
+    },
+    {
+      "starts_with": "b"
+    },
+    {
+      "starts_with": "c"
+    }
+  ],
+  "solutions_points": [
+    {
+      "anna": 5,
+      "anaconda": 10
+    },
+    {
+      "banana": 5,
+      "b": 1
+    },
+    {
+      "c": 1,
+      "cucumber": 8
+    },
+    {
+      "banana": 5,
+      "cucumber": 8,
+      "anaconda": 10
+    },
+    {
+      "anaconda": 10,
+      "banana": 5
+    },
+    {
+      "b": 1,
+      "banana": 5
+    },
+    {
+      "banana": 5,
+      "cucumber": 8,
+      "anaconda": 10
+    },
+    {
+      "anaconda": 10,
+      "banana": 5
+    },
+    {
+      "b": 1,
+      "banana": 5
+    }
+  ]
+}

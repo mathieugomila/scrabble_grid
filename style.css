@@ -1,0 +1,87 @@
+:root {
+  --background_custom_color: rgb(70, 70, 70);
+  --contrast_custom_color: rgb(200, 200, 200);
+}
+
+body {
+  background-color: var(--background_custom_color);
+}
+
+.container {
+  width: 45vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  background-color: var(--background_custom_color);
+  justify-content: center;
+}
+
+.head_container {
+  width: 90%;
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 0.5vh;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 7vw);
+  grid-auto-rows: 7vw;
+  grid-auto-columns: 7vw;
+  grid-gap: 1vw;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+}
+
+.grid-item {
+  color: var(--background_custom_color);
+  background-color: var(--contrast_custom_color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 7vw; /* Adjust based on preference */
+  text-align: center;
+  font-size: 20px; /* Adjust based on preference */
+  border: 1px solid transparent; /* For visibility */
+  cursor: text;
+}
+
+.grid-item[contenteditable="true"]:focus {
+  border-color: #000; /* Highlight when editable item is focused */
+}
+
+.grid-item.bad {
+  background-color: rgb(219, 141, 24);
+}
+
+.grid-item.medium {
+  background-color: rgb(235, 214, 28);
+}
+
+.grid-item.good {
+  background-color: rgb(37, 173, 19);
+}
+
+.grid-item.perfect {
+  background-color: rgb(111, 3, 252);
+}
+
+.grid-item.unknown {
+  background-color: rgb(255, 0, 0);
+}
+
+.grid_item.empty {
+  background-color: var(--contrast_custom_color);
+}
+
+#validateButton {
+  width: 100%;
+  font-size: 0.8vw;
+  font-weight: bold;
+  background-color: var(--background_custom_color);
+  color: var(--contrast_custom_color);
+}
