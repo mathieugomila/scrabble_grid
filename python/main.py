@@ -177,9 +177,7 @@ def get_all_combination(first_criterias, last_criterias):
             list_of_list_of_words.append(words)
 
             if len(words) < MIN_NUMBER or len(words) > MAX_NUMBER:
-                print("Dommage, on recommence", len(words), "mots trouvés")
                 return None
-            print("YEAH")
     return list_of_list_of_words
 
 
@@ -231,7 +229,7 @@ def generate_dates(first_day, day):
 
 
 def main():
-    first_day = "03-07-2024"
+    first_day = "13-07-2024"
     day = 0
     while True:
         date = generate_dates(first_day, day)
@@ -239,6 +237,7 @@ def main():
 
         export_file_path = EXPORT_FOLDER / f"grid_{date}.json"
         export_file_path.write_text(json.dumps(generated_dict, indent=4))
+        print(f"Generated {export_file_path}")
         day += 1
 
 
