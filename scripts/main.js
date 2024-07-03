@@ -114,7 +114,7 @@ async function set_criterias_text() {
 /////////////////// COUNT SCORE //////////////////////
 function get_text_for_one_case(editableCaseIndex) {
     const textElement = document.querySelector(`[editable-data-index="${editableCaseIndex}"]`);
-    return textElement.value;
+    return textElement.value.toLowerCase();
 }
 
 function count_score_for_one_case(editableCaseIndex) {
