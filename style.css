@@ -85,3 +85,46 @@ body {
   background-color: var(--background_custom_color);
   color: var(--contrast_custom_color);
 }
+
+@media only screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: auto;
+    background-color: var(--background_custom_color);
+    justify-content: center;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 18vw);
+    grid-auto-rows: 18vw;
+    grid-auto-columns: 18vw;
+    grid-gap: 3vw;
+    padding-top: 3vw;
+    padding-bottom: 3vw;
+  }
+
+  .grid-item {
+    color: var(--background_custom_color);
+    background-color: var(--contrast_custom_color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 18vw; /* Adjust based on preference */
+    text-align: center;
+    font-size: 12px; /* Adjust based on preference */
+    border: 1px solid transparent; /* For visibility */
+    cursor: text;
+  }
+
+  #validateButton {
+    width: 100%;
+    font-size: 3vw;
+    font-weight: bold;
+    color: var(--contrast_custom_color);
+    background-color: var(--background_custom_color);
+  }
+}
