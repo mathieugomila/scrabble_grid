@@ -134,7 +134,11 @@ async function set_criterias_text() {
 /////////////////// COUNT SCORE //////////////////////
 function get_text_for_one_case(editableCaseIndex) {
     const textElement = document.querySelector(`[editable-data-index="${editableCaseIndex}"]`);
-    return textElement.value.toLowerCase();
+    const textToLowerCase = textElement.value.toLowerCase();
+    const textWithoutSpace = textToLowerCase.replace(/\s+/g, '');
+    const textWithoutAccent = textWithoutSpace.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    return textWithoutAccent;
 }
 
 function get_max_score_for_one_case(editableCaseIndex) {
@@ -223,10 +227,10 @@ function get_type_for_case(editableCaseIndex) {
     else if (case_score == 0) {
         return "unknown";
     }
-    else if (case_score <= (0.35 * best_score_possible_for_case)) {
+    else if (case_score <= (0.30 * best_score_possible_for_case)) {
         return "bad";
     }
-    else if (case_score <= (0.65 * best_score_possible_for_case)) {
+    else if (case_score <= (0.60 * best_score_possible_for_case)) {
         return "medium";
     }
     else if (case_score < best_score_possible_for_case) {
