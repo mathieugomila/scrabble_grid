@@ -144,13 +144,20 @@ def get_all_words_containing(letter):
 
 
 def get_first_criterias():
-    first_criterias = [generate_a_first_criteria() for _ in range(3)]
+    first_criterias = []
+
+    # Make sure that the first criterias are different
+    while len(set(first_criterias)) < 3:
+        first_criterias = [generate_a_first_criteria() for _ in range(3)]
 
     return first_criterias
 
 
 def get_last_criterias():
-    last_criterias = [generate_a_last_criteria() for _ in range(3)]
+    last_criterias = []
+
+    while len(set(last_criterias)) < 3:
+        last_criterias = [generate_a_last_criteria() for _ in range(3)]
 
     return last_criterias
 
@@ -229,7 +236,7 @@ def generate_dates(first_day, day):
 
 
 def main():
-    first_day = "13-07-2024"
+    first_day = "05-07-2024"
     day = 0
     while True:
         date = generate_dates(first_day, day)
