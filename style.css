@@ -1,6 +1,6 @@
 :root {
   --background_custom_color: rgb(70, 70, 70);
-  --contrast_custom_color: rgb(200, 200, 200);
+  --contrast_custom_color: rgb(187, 187, 187);
 }
 
 body {
@@ -25,6 +25,7 @@ body {
   align-items: center;
   text-align: center;
   padding-top: 0.5vh;
+  color: var(--contrast_custom_color);
 }
 
 .grid-container {
@@ -89,7 +90,7 @@ body {
 }
 
 .grid-item-input.empty {
-  background-color: var(--contrast_custom_color);
+  background-color: rgb(219, 218, 218);
 }
 
 .grid-item-score {
@@ -106,6 +107,30 @@ body {
   font-size: 20px;
   padding: 3px;
   border-radius: 10%;
+}
+
+.button_container {
+  height: 3vh;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1vw;
+}
+
+.helper_container {
+  height: 3vh;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1vw;
+}
+
+#helperButton {
+  width: 100%;
+  font-size: 0.8vw;
+  font-weight: bold;
+  background-color: var(--background_custom_color);
+  color: var(--contrast_custom_color);
 }
 
 #validateButton {
@@ -158,6 +183,30 @@ body {
     color: var(--background_custom_color);
     font-size: 10px;
     padding: 5px;
+  }
+
+  .helper_container {
+    height: 5vw;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3vw;
+  }
+
+  .button_container {
+    height: 5vw;
+    width: 90%;
+    justify-content: center;
+    padding-top: 3vw;
+    align-items: center;
+  }
+
+  #helperButton {
+    width: 100%;
+    font-size: 3vw;
+    font-weight: bold;
+    color: var(--contrast_custom_color);
+    background-color: var(--background_custom_color);
   }
 
   #validateButton {

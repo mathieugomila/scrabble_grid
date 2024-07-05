@@ -4,6 +4,12 @@ const INDEX_EDITABLE_TEXT = [5, 6, 7, 9, 10, 11, 13, 14, 15];
 let today_grid_dict = {}
 let current_score = 0;
 
+let best_solution_words = [];
+
+let max_score = 0;
+
+let spellcheck = false;
+
 /////////////////// INFO //////////////////////
 function days_since_start() {
     const now = new Date();
@@ -45,7 +51,7 @@ function add_editable_text(editableCaseIndex) {
     inputElement.classList.add('grid-item-input');
     inputElement.setAttribute('editable-data-index', editableCaseIndex);
     inputElement.style.border = 'none';
-    inputElement.spellcheck = true;
+    inputElement.spellcheck = spellcheck;
     inputElement.wrap = 'on';
 
 
@@ -136,9 +142,12 @@ function get_max_score_for_one_case(editableCaseIndex) {
     const solution_for_case = solutions[editableCaseIndex];
 
     let max_score = 0;
+    let best_word = ""
     for (const key in solution_for_case) {
         max_score = Math.max(max_score, solution_for_case[key]);
+        best_word = key;
     }
+    best_solution_words.push(best_word);
 
     return max_score;
 }
@@ -176,7 +185,6 @@ function count_score() {
     }
 
     current_score = score;
-    console.log(`Score: ${current_score} points`);
 }
 
 function on_modified_text_event() {
@@ -195,7 +203,7 @@ function add_on_modified_text_event() {
 
 function indicate_score() {
     const textElement = document.querySelector(`[non-editable-data-index="0"]`);
-    textElement.textContent = `Score: ${current_score}`;
+    textElement.textContent = `Score: ${current_score} / ${max_score}`;
 }
 
 function remove_color_for_case(editableCaseIndex) {
@@ -244,9 +252,11 @@ function set_color_based_on_text() {
 
 function calculate_max_score() {
     let max_score = 0;
+    best_solution_words = [];
     for (let i = 0; i < 9; i++) {
         max_score += get_max_score_for_one_case(i);
     }
+    console.log(`[SPOILER CAREFUL]Best solution: ${best_solution_words}`);
     return max_score;
 }
 
@@ -283,9 +293,8 @@ function get_detail_per_case() {
 
 async function on_shared_button_clicked() {
     const daySinceStar = days_since_start();
-    const maxScore = calculate_max_score();
     const intro_text = `#SCRABBLE_GRID jour n°${daySinceStar}`;
-    const score_text = `Mon score du jour est de ${current_score} points ! [Max possible: ${maxScore} points]`;
+    const score_text = `Mon score du jour est de ${current_score} points ! [Max possible: ${max_score} points]`;
     const url = `Viens jouer sur ${window.location.href}`;
     const detail_per_case = get_detail_per_case();
 
@@ -307,6 +316,26 @@ function set_default_text_for_shared_button() {
     document.getElementById("validateButton").firstChild.nodeValue = `Cliquez ici pour partager votre score`;
 }
 
+/////////////////// HELPER //////////////////////
+function add_on_helper_button_event() {
+    document.getElementById("helperButton").addEventListener('click', on_helper_button_clicked);
+}
+
+function on_helper_button_clicked() {
+    spellcheck = !spellcheck;
+    for (let i = 0; i < 9; i++) {
+        const textElement = document.querySelector(`[editable-data-index="${i}"]`);
+        textElement.spellcheck = spellcheck;
+    }
+    set_helper_button_text();
+}
+
+function set_helper_button_text() {
+    // Modiy helperButton text
+    const helperButton = document.getElementById("helperButton");
+    helperButton.textContent = spellcheck ? "[Aide] Cliquez pour DÉSACTIVER la correction automatique" : "[Aide] Cliquez pour ACTIVER la correction automatique";
+}
+
 
 /////////////////// MAIN //////////////////////
 
@@ -317,12 +346,18 @@ async function main() {
 
     // Edit Text Cases
     add_on_modified_text_event();
+    max_score = calculate_max_score();
     indicate_score();
     count_score(); // Count score at the beginning (To indicate the score for each case)
+    set_color_based_on_text();
 
     // Share Button
     set_default_text_for_shared_button();
     add_on_shared_button_event();
+
+    // Helper Button
+    add_on_helper_button_event();
+    set_helper_button_text();
 }
 
 
