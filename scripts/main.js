@@ -37,11 +37,25 @@ function add_non_editable_text(nonEditableCaseIndex) {
 }
 
 function add_editable_text(editableCaseIndex) {
-    const textElement = document.createElement('input');
-    textElement.type = 'text';
+    const textElement = document.createElement('div');
     textElement.classList.add('grid-item');
 
-    textElement.setAttribute('editable-data-index', editableCaseIndex);
+    const inputElement = document.createElement('textarea');
+    inputElement.type = 'text';
+    inputElement.classList.add('grid-item-input');
+    inputElement.setAttribute('editable-data-index', editableCaseIndex);
+    inputElement.style.border = 'none';
+    inputElement.spellcheck = true;
+    inputElement.wrap = 'on';
+
+
+    const spanElement = document.createElement('span');
+    spanElement.classList.add('grid-item-score');
+    inputElement.setAttribute('score-text-data-index', editableCaseIndex);
+    spanElement.textContent = 'TBD';
+
+    textElement.appendChild(inputElement);
+    textElement.appendChild(spanElement);
 
     gridContainer.appendChild(textElement);
 }
@@ -76,16 +90,16 @@ function get_date_in_str_format() {
 function set_one_criteria_text(index, criteria) {
     let text = "";
     if (criteria["starts_with"]) {
-        const letter_starts_with = criteria["starts_with"];
-        text = `Commence par '${letter_starts_with}'`;
+        const letter_starts_with = criteria["starts_with"].toUpperCase();
+        text = `Commence par ${letter_starts_with}`;
     }
     else if (criteria["contains"]) {
-        const letter_contains = criteria["contains"];
-        text = `Contient '${letter_contains}'`;
+        const letter_contains = criteria["contains"].toUpperCase();
+        text = `Contient ${letter_contains}`;
     }
     else if (criteria["ends_with"]) {
-        const letter_ends_with = criteria["ends_with"];
-        text = `Finis par '${letter_ends_with}'`;
+        const letter_ends_with = criteria["ends_with"].toUpperCase();
+        text = `Finis par ${letter_ends_with}`;
     }
 
     // index + 1 because data-index 0 correspond to the top left corner
@@ -117,6 +131,18 @@ function get_text_for_one_case(editableCaseIndex) {
     return textElement.value.toLowerCase();
 }
 
+function get_max_score_for_one_case(editableCaseIndex) {
+    const solutions = today_grid_dict["solutions_points"];
+    const solution_for_case = solutions[editableCaseIndex];
+
+    let max_score = 0;
+    for (const key in solution_for_case) {
+        max_score = Math.max(max_score, solution_for_case[key]);
+    }
+
+    return max_score;
+}
+
 function count_score_for_one_case(editableCaseIndex) {
     const text = get_text_for_one_case(editableCaseIndex);
 
@@ -135,10 +161,18 @@ function count_score_for_one_case(editableCaseIndex) {
     return solution_for_case[text];
 }
 
+function indicate_score_for_one_case(editableCaseIndex, score) {
+    const textElement = document.querySelector(`[score-text-data-index="${editableCaseIndex}"]`).nextElementSibling;
+    const max_score_for_case = get_max_score_for_one_case(editableCaseIndex);
+    textElement.textContent = `${score} / ${max_score_for_case}`;
+}
+
 function count_score() {
     let score = 0;
     for (let i = 0; i < 9; i++) {
-        score += count_score_for_one_case(i);
+        const case_score = count_score_for_one_case(i);
+        score += case_score;
+        indicate_score_for_one_case(i, case_score);
     }
 
     current_score = score;
@@ -153,7 +187,7 @@ function on_modified_text_event() {
 }
 
 function add_on_modified_text_event() {
-    const editableTextElements = document.querySelectorAll('.grid-item[type="text"]');
+    const editableTextElements = document.querySelectorAll('.grid-item-input');
     editableTextElements.forEach(element => {
         element.addEventListener('input', on_modified_text_event);
     });
@@ -162,18 +196,6 @@ function add_on_modified_text_event() {
 function indicate_score() {
     const textElement = document.querySelector(`[non-editable-data-index="0"]`);
     textElement.textContent = `Score: ${current_score}`;
-}
-
-function get_max_score_for_one_case(editableCaseIndex) {
-    const solutions = today_grid_dict["solutions_points"];
-    const solution_for_case = solutions[editableCaseIndex];
-
-    let max_score = 0;
-    for (const key in solution_for_case) {
-        max_score = Math.max(max_score, solution_for_case[key]);
-    }
-
-    return max_score;
 }
 
 function remove_color_for_case(editableCaseIndex) {
@@ -296,6 +318,7 @@ async function main() {
     // Edit Text Cases
     add_on_modified_text_event();
     indicate_score();
+    count_score(); // Count score at the beginning (To indicate the score for each case)
 
     // Share Button
     set_default_text_for_shared_button();

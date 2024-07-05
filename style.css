@@ -38,44 +38,73 @@ body {
 }
 
 .grid-item {
+  position: relative;
   color: var(--background_custom_color);
   background-color: var(--contrast_custom_color);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 7vw; /* Adjust based on preference */
+  height: 7vw;
   text-align: center;
-  font-size: 20px; /* Adjust based on preference */
-  border: 1px solid transparent; /* For visibility */
+  font-size: 18px;
+  /*border: 1px solid transparent;*/
   cursor: text;
+  border-radius: 5%;
 }
 
-.grid-item[contenteditable="true"]:focus {
-  border-color: #000; /* Highlight when editable item is focused */
+.grid-item-input {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--background_custom_color);
+  font-size: 20px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: text;
+  justify-content: center;
+  text-align: center;
+  border-radius: 5%;
 }
 
-.grid-item.bad {
+.grid-item-input.bad {
   background-color: rgb(219, 141, 24);
 }
 
-.grid-item.medium {
+.grid-item-input.medium {
   background-color: rgb(235, 214, 28);
 }
 
-.grid-item.good {
+.grid-item-input.good {
   background-color: rgb(37, 173, 19);
 }
 
-.grid-item.perfect {
-  background-color: rgb(111, 3, 252);
+.grid-item-input.perfect {
+  background-color: rgb(145, 82, 226);
 }
 
-.grid-item.unknown {
-  background-color: rgb(255, 0, 0);
+.grid-item-input.unknown {
+  background-color: rgb(145, 79, 79);
 }
 
-.grid_item.empty {
+.grid-item-input.empty {
   background-color: var(--contrast_custom_color);
+}
+
+.grid-item-score {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.404);
+  color: var(--background_custom_color);
+  bottom: 0;
+  right: 2px;
+  bottom: 2px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+  color: var(--background_custom_color);
+  font-size: 20px;
+  padding: 3px;
+  border-radius: 10%;
 }
 
 #validateButton {
@@ -108,6 +137,7 @@ body {
   }
 
   .grid-item {
+    position: relative;
     color: var(--background_custom_color);
     background-color: var(--contrast_custom_color);
     display: flex;
@@ -118,6 +148,15 @@ body {
     font-size: 12px; /* Adjust based on preference */
     border: 1px solid transparent; /* For visibility */
     cursor: text;
+  }
+
+  .grid-score-indication {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: var(--background_custom_color);
+    font-size: 10px;
+    padding: 5px;
   }
 
   #validateButton {
