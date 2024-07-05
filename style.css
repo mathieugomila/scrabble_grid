@@ -171,18 +171,17 @@ body {
     align-items: center;
     height: 18vw; /* Adjust based on preference */
     text-align: center;
-    font-size: 12px; /* Adjust based on preference */
+    font-size: 3vw; /* Adjust based on preference */
     border: 1px solid transparent; /* For visibility */
     cursor: text;
   }
 
-  .grid-score-indication {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    color: var(--background_custom_color);
-    font-size: 10px;
-    padding: 5px;
+  .grid-item-input {
+    font-size: 3vw;
+  }
+
+  .grid-item-score {
+    font-size: 3vw;
   }
 
   .helper_container {
