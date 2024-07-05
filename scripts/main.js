@@ -148,8 +148,10 @@ function get_max_score_for_one_case(editableCaseIndex) {
     let max_score = 0;
     let best_word = ""
     for (const key in solution_for_case) {
-        max_score = Math.max(max_score, solution_for_case[key]);
-        best_word = key;
+        if (solution_for_case[key] > max_score) {
+            max_score = solution_for_case[key];
+            best_word = key;
+        }
     }
     best_solution_words.push(best_word);
 
