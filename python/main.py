@@ -6,7 +6,7 @@ import json
 MIN_NUMBER = 50
 MAX_NUMBER = 10000
 
-PATH_TO_WORDS = Path("data/ods8.txt")
+PATH_TO_WORDS = Path("data/tous_mots_francais.txt")
 ALL_WORDS = PATH_TO_WORDS.read_text().lower().split("\n")
 
 PATH_TO_SCRABBLE_SCORE = Path("data/letters_score.json")
@@ -27,7 +27,6 @@ first_possible_value = [
     "h",
     "i",
     "j",
-    "k",
     "l",
     "m",
     "n",
@@ -38,6 +37,11 @@ first_possible_value = [
     "t",
     "u",
     "v",
+    "ch",
+    "ph",
+    "sc",
+    "gn",
+    "qu",
 ]
 
 last_possible_key = ["contains", "ends_with"]
