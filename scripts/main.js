@@ -135,8 +135,7 @@ async function set_criterias_text() {
 function get_text_for_one_case(editableCaseIndex) {
     const textElement = document.querySelector(`[editable-data-index="${editableCaseIndex}"]`);
     const textToLowerCase = textElement.value.toLowerCase();
-    const textWithoutSpace = textToLowerCase.replace(/\s+/g, '');
-    const textWithoutAccent = textWithoutSpace.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const textWithoutAccent = textToLowerCase.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     return textWithoutAccent;
 }
@@ -166,14 +165,21 @@ function count_score_for_one_case(editableCaseIndex) {
         return 0;
     }
 
+    let best_score = 0;
+
     // Try to find if text is one of the solution of the day
+    all_words = text.split(/\s+/);
+    console.log(all_words);
     const solutions = today_grid_dict["solutions_points"];
     const solution_for_case = solutions[editableCaseIndex];
-    if (solution_for_case[text] === undefined) {
-        return 0;
+    for (const word of all_words) {
+        if (solution_for_case[word]) {
+            console.log("yes");
+            best_score = Math.max(best_score, solution_for_case[word]);
+        }
     }
 
-    return solution_for_case[text];
+    return best_score;
 }
 
 function indicate_score_for_one_case(editableCaseIndex, score) {
@@ -277,7 +283,7 @@ function get_detail_per_case() {
                 detail_per_case += "🔲";
             }
             else if (case_type === "unknown") {
-                detail_per_case += "🟥";
+                detail_per_case += "🔲";
             }
             else if (case_type === "bad") {
                 detail_per_case += "🟧";
