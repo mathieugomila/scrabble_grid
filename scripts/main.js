@@ -169,12 +169,10 @@ function count_score_for_one_case(editableCaseIndex) {
 
     // Try to find if text is one of the solution of the day
     all_words = text.split(/\s+/);
-    console.log(all_words);
     const solutions = today_grid_dict["solutions_points"];
     const solution_for_case = solutions[editableCaseIndex];
     for (const word of all_words) {
         if (solution_for_case[word]) {
-            console.log("yes");
             best_score = Math.max(best_score, solution_for_case[word]);
         }
     }
