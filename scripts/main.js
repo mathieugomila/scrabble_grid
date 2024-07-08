@@ -105,7 +105,7 @@ function set_one_criteria_text(index, criteria) {
     }
     else if (criteria["ends_with"]) {
         const letter_ends_with = criteria["ends_with"].toUpperCase();
-        text = `Finis par ${letter_ends_with}`;
+        text = `Finit par ${letter_ends_with}`;
     }
 
     // index + 1 because data-index 0 correspond to the top left corner
