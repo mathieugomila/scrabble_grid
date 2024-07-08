@@ -177,6 +177,17 @@ function count_score_for_one_case(editableCaseIndex) {
         }
     }
 
+    // Try to see if another case has the same word, in this case return 0
+    for (let i = 0; i < 9; i++) {
+        if (i === editableCaseIndex) {
+            continue;
+        }
+        const other_text = get_text_for_one_case(i);
+        if (other_text === text) {
+            return 0;
+        }
+    }
+
     return best_score;
 }
 
