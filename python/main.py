@@ -194,17 +194,17 @@ def get_all_combination(first_criterias, last_criterias):
 
 def get_scrabble_score(word):
     score = 0
-    word_length = length(word)
-    for letter_index in word_length:
+    word_length = len(word)
+    for letter_index in range(word_length):
         letter = word[letter_index]
-        # if a "z" is at the end of the word we reduce the points it gives, 
+        # if a "z" is at the end of the word we reduce the points it gives,
         # because it is too simple with verbs
         if letter.upper() == "Z" and letter_index == word_length - 1:
-            score += 3
+            score += 1
             continue
         score += SCRABBLE_SCORE[letter]
-    # add one point per letter to favorisate long words
-    score += word_length
+    word_length_multiplicator = max(int(word_length / 10), 1.0)
+    score *= word_length_multiplicator
     return score
 
 
@@ -249,7 +249,7 @@ def generate_dates(first_day, day):
 
 
 def main():
-    first_day = "05-07-2024"
+    first_day = "21-07-2024"
     day = 0
     while True:
         date = generate_dates(first_day, day)
