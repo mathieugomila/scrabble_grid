@@ -125,6 +125,14 @@ body {
   padding-bottom: 1vw;
 }
 
+.spoil_container {
+  height: 3vh;
+  width: 80%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 1vw;
+}
+
 #helperButton {
   width: 100%;
   font-size: 0.8vw;
@@ -134,6 +142,14 @@ body {
 }
 
 #validateButton {
+  width: 100%;
+  font-size: 0.8vw;
+  font-weight: bold;
+  background-color: var(--background_custom_color);
+  color: var(--contrast_custom_color);
+}
+
+#spoilButton {
   width: 100%;
   font-size: 0.8vw;
   font-weight: bold;
@@ -200,6 +216,14 @@ body {
     align-items: center;
   }
 
+  .spoil_container {
+    height: 5vw;
+    width: 95%;
+    justify-content: center;
+    padding-top: 3vw;
+    align-items: center;
+  }
+
   #helperButton {
     width: 100%;
     font-size: 3vw;
@@ -209,6 +233,14 @@ body {
   }
 
   #validateButton {
+    width: 100%;
+    font-size: 3vw;
+    font-weight: bold;
+    color: var(--contrast_custom_color);
+    background-color: var(--background_custom_color);
+  }
+
+  #spoilButton {
     width: 100%;
     font-size: 3vw;
     font-weight: bold;

@@ -357,6 +357,18 @@ function set_helper_button_text() {
     helperButton.textContent = spellcheck ? "[Aide] Cliquez pour DÉSACTIVER la correction automatique" : "[Aide] Cliquez pour ACTIVER la correction automatique";
 }
 
+/////////////////// SPOIL //////////////////////
+function add_on_spoil_button_event() {
+    document.getElementById("spoilButton").addEventListener('click', on_spoil_button_clicked);
+}
+
+function on_spoil_button_clicked() {
+    for (let i = 0; i < 9; i++) {
+        const textElement = document.querySelector(`[editable-data-index="${i}"]`);
+        textElement.value = best_solution_words[i];
+    }
+    on_modified_text_event();
+}
 
 /////////////////// MAIN //////////////////////
 
@@ -379,6 +391,9 @@ async function main() {
     // Helper Button
     add_on_helper_button_event();
     set_helper_button_text();
+
+    // Spoil button
+    add_on_spoil_button_event();
 }
 
 

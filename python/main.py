@@ -203,9 +203,6 @@ def get_scrabble_score(word):
             score += 3
             continue
         score += SCRABBLE_SCORE[letter]
-    # Reduce the score if the word is too long (10% less for each letter after 10)
-    if word_length > 10:
-        score = int(score * (0.97 ** (word_length - 10)))
     return score
 
 
@@ -250,7 +247,7 @@ def generate_dates(first_day, day):
 
 
 def main():
-    first_day = "12-07-2024"
+    first_day = "18-07-2024"
     day = 0
     while True:
         date = generate_dates(first_day, day)
