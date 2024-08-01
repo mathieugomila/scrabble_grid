@@ -185,7 +185,7 @@ body {
     position: relative;
     color: var(--background_custom_color);
     background-color: var(--contrast_custom_color);
-    display: flex;
+    display: inline-block;
     justify-content: center;
     align-items: center;
     height: 20vw; /* Adjust based on preference */
@@ -193,6 +193,9 @@ body {
     font-size: 3vw; /* Adjust based on preference */
     border: 1px solid transparent; /* For visibility */
     cursor: text;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
   }
 
   .grid-item-input {
