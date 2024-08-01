@@ -10,6 +10,20 @@ let max_score = 0;
 
 let spellcheck = false;
 
+POINT_TO_COLOR_MAPPING = {
+    0: "black",
+    1: "black",
+    2: "red",
+    3: "red",
+    4: "orange",
+    5: "orange",
+    6: "yellow",
+    7: "yellow",
+    8: "green",
+    9: "green",
+    10: "purple",
+}
+
 /////////////////// INFO //////////////////////
 function days_since_start() {
     const now = new Date();
@@ -210,7 +224,7 @@ function count_score() {
 
 function on_modified_text_event() {
     count_score();
-    indicate_score();
+    indicate_score_case();
     set_default_text_for_shared_button();
     set_color_based_on_text();
 }
@@ -222,9 +236,27 @@ function add_on_modified_text_event() {
     });
 }
 
-function indicate_score() {
+function indicate_score_case() {
     const textElement = document.querySelector(`[non-editable-data-index="0"]`);
-    textElement.textContent = `Score: ${current_score} / ${max_score}`;
+    const score_str = `Score: ${current_score} / ${max_score}<br>`;
+    textElement.innerHTML = score_str;
+    let points_str = ""
+    const points_per_letter_dict = today_grid_dict["points_per_letter"]
+    for (let point = 10; point > 0; point--) {
+        for (const letter in points_per_letter_dict) {
+            if (points_per_letter_dict[letter] != point) {
+                continue
+            }
+
+            const color_str = POINT_TO_COLOR_MAPPING[point];
+            const letterSpan = document.createElement('span');
+            letterSpan.className = 'colored-letter';
+            letterSpan.style.color = color_str;
+            letterSpan.textContent = letter.toUpperCase();
+            textElement.appendChild(letterSpan);
+        }
+    }
+
 }
 
 function remove_color_for_case(editableCaseIndex) {
@@ -380,7 +412,7 @@ async function main() {
     // Edit Text Cases
     add_on_modified_text_event();
     max_score = calculate_max_score();
-    indicate_score();
+    indicate_score_case();
     count_score(); // Count score at the beginning (To indicate the score for each case)
     set_color_based_on_text();
 

@@ -3,6 +3,8 @@ import random
 from pathlib import Path
 import json
 
+import string
+
 MIN_NUMBER = 50
 MAX_NUMBER = 10000
 
@@ -10,7 +12,6 @@ PATH_TO_WORDS = Path("data/tous_mots_francais.txt")
 ALL_WORDS = PATH_TO_WORDS.read_text().lower().split("\n")
 
 PATH_TO_SCRABBLE_SCORE = Path("data/letters_score.json")
-SCRABBLE_SCORE = json.loads(PATH_TO_SCRABBLE_SCORE.read_text())
 
 EXPORT_FOLDER = Path("days")
 
@@ -92,6 +93,48 @@ last_possible_value = [
     "ll",
     "mm",
 ]
+
+
+def generate_point_per_letter():
+    points = [
+        10,
+        10,
+        10,
+        10,
+        10,
+        8,
+        8,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+    ]
+
+    letters = list(string.ascii_lowercase)
+
+    points_per_letter = {}
+    for letter in letters:
+        random_index = random.randint(0, len(points) - 1)
+        points_per_letter[letter] = points[random_index]
+        points.pop(random_index)
+
+    points_per_letter["-"] = 0
+    return points_per_letter
 
 
 def generate_a_first_criteria():
@@ -192,7 +235,7 @@ def get_all_combination(first_criterias, last_criterias):
     return list_of_list_of_words
 
 
-def get_scrabble_score(word):
+def get_scrabble_score(word, scrabble_score):
     score = 0
     word_length = len(word)
     for letter_index in range(word_length):
@@ -202,11 +245,11 @@ def get_scrabble_score(word):
         if letter.upper() == "Z" and letter_index == word_length - 1:
             score += 3
             continue
-        score += SCRABBLE_SCORE[letter]
+        score += scrabble_score[letter]
     return score
 
 
-def generate_all_data():
+def generate_all_data(scrabble_score):
     first_criterias, last_criterias, list_of_list_of_words = (
         get_criteria_and_words_until_condition_are_satisfied()
     )
@@ -224,16 +267,19 @@ def generate_all_data():
     for first_key, first_value in first_criterias:
         for last_key, last_value in last_criterias:
             solution_points_dict = generate_all_solution_points_for_one_criteria(
-                list_of_list_of_words[index],
+                list_of_list_of_words[index], scrabble_score
             )
             export_dict["solutions_points"].append(solution_points_dict)
             index += 1
+
+    export_dict["points_per_letter"] = scrabble_score
+
     return export_dict
 
 
-def generate_all_solution_points_for_one_criteria(words):
+def generate_all_solution_points_for_one_criteria(words, scrabble_score):
 
-    solution_scores = {word: get_scrabble_score(word) for word in words}
+    solution_scores = {word: get_scrabble_score(word, scrabble_score) for word in words}
 
     return solution_scores
 
@@ -247,11 +293,12 @@ def generate_dates(first_day, day):
 
 
 def main():
-    first_day = "18-07-2024"
+    first_day = "01-08-2024"
     day = 0
-    while True:
+    if True:
         date = generate_dates(first_day, day)
-        generated_dict = generate_all_data()
+        scrabble_score = generate_point_per_letter()
+        generated_dict = generate_all_data(scrabble_score)
 
         export_file_path = EXPORT_FOLDER / f"grid_{date}.json"
         export_file_path.write_text(json.dumps(generated_dict, indent=4))

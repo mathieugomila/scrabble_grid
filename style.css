@@ -42,7 +42,7 @@ body {
   position: relative;
   color: var(--background_custom_color);
   background-color: var(--contrast_custom_color);
-  display: flex;
+  display: inline-block;
   justify-content: center;
   align-items: center;
   height: 9vw;
@@ -51,6 +51,9 @@ body {
   /*border: 1px solid transparent;*/
   cursor: text;
   border-radius: 5%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .grid-item-input {
