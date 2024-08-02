@@ -180,28 +180,38 @@ function count_score_for_one_case(editableCaseIndex) {
     }
 
     let best_score = 0;
+    let best_word = ""
 
     // Try to find if text is one of the solution of the day
     all_words = text.split(/\s+/);
     const solutions = today_grid_dict["solutions_points"];
     const solution_for_case = solutions[editableCaseIndex];
     for (const word of all_words) {
-        if (solution_for_case[word]) {
-            best_score = Math.max(best_score, solution_for_case[word]);
-        }
-    }
-
-    // Try to see if another case has the same word, in this case return 0
-    for (let i = 0; i < 9; i++) {
-        if (i === editableCaseIndex) {
+        if (!solution_for_case[word]) {
             continue;
         }
-        const other_text = get_text_for_one_case(i);
-        if (other_text === text) {
-            return 0;
-        }
-    }
 
+        let is_word_valid = true;
+
+        for (let i = 0; i < 9; i++) {
+            if (i === editableCaseIndex) {
+                continue;
+            }
+
+            const other_text = get_text_for_one_case(i);
+
+            if (other_text.split(/\s+/).includes(word)) {
+                is_word_valid = false;
+            }
+        }
+
+        if (!is_word_valid) {
+            continue;
+        }
+
+        best_score = Math.max(best_score, solution_for_case[word]);
+        best_word = word;
+    }
     return best_score;
 }
 
