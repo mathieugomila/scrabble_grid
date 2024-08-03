@@ -47,13 +47,14 @@ body {
   align-items: center;
   height: 9vw;
   text-align: center;
-  font-size: 22px;
+  font-size: 17px;
   /*border: 1px solid transparent;*/
   cursor: text;
   border-radius: 5%;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  word-break: break-all;
+  resize: none;
+  pointer-events: none;
 }
 
 .grid-item-input {
@@ -190,12 +191,11 @@ body {
     align-items: center;
     height: 20vw; /* Adjust based on preference */
     text-align: center;
-    font-size: 3vw; /* Adjust based on preference */
+    font-size: 2.5vw; /* Adjust based on preference */
     border: 1px solid transparent; /* For visibility */
     cursor: text;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    word-break: break-all;
   }
 
   .grid-item-input {

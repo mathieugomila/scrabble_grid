@@ -14,13 +14,13 @@ POINT_TO_COLOR_MAPPING = {
     0: "black",
     1: "black",
     2: "red",
-    3: "red",
-    4: "orange",
-    5: "orange",
-    6: "yellow",
-    7: "yellow",
-    8: "green",
-    9: "green",
+    3: "orange",
+    4: "yellow",
+    5: "yellow",
+    6: "green",
+    7: "green",
+    8: "blue",
+    9: "blue",
     10: "purple",
 }
 
@@ -47,7 +47,7 @@ function set_page_title() {
 
 /////////////////// GRID //////////////////////
 function add_non_editable_text(nonEditableCaseIndex) {
-    const nonEditableText = document.createElement('span');
+    const nonEditableText = document.createElement('textarea');
     nonEditableText.classList.add('grid-item');
     nonEditableText.textContent = '-';
 
@@ -58,7 +58,7 @@ function add_non_editable_text(nonEditableCaseIndex) {
 
 function add_editable_text(editableCaseIndex) {
     const textElement = document.createElement('div');
-    textElement.classList.add('grid-item');
+    // textElement.classList.add('grid-item');
 
     const inputElement = document.createElement('textarea');
     inputElement.type = 'text';
@@ -248,22 +248,31 @@ function add_on_modified_text_event() {
 
 function indicate_score_case() {
     const textElement = document.querySelector(`[non-editable-data-index="0"]`);
-    const score_str = `Score: ${current_score} / ${max_score}<br>`;
+    const score_str = `Score: ${current_score} / ${max_score}\n`;
     textElement.innerHTML = score_str;
     let points_str = ""
     const points_per_letter_dict = today_grid_dict["points_per_letter"]
     for (let point = 10; point > 0; point--) {
+        let is_point = false;
         for (const letter in points_per_letter_dict) {
             if (points_per_letter_dict[letter] != point) {
                 continue
             }
 
-            const color_str = POINT_TO_COLOR_MAPPING[point];
-            const letterSpan = document.createElement('span');
-            letterSpan.className = 'colored-letter';
-            letterSpan.style.color = color_str;
-            letterSpan.textContent = letter.toUpperCase();
-            textElement.appendChild(letterSpan);
+            is_point = true;
+
+            textElement.innerHTML += letter.toUpperCase();
+
+            // const color_str = POINT_TO_COLOR_MAPPING[point];
+            // const letterSpan = document.createElement('span');
+            // letterSpan.className = 'colored-letter';
+            // letterSpan.style.color = color_str;
+            // letterSpan.textContent = letter.toUpperCase();
+            // textElement.appendChild(letterSpan);
+        }
+
+        if (is_point) {
+            textElement.innerHTML += `: ${point} points\n`;
         }
     }
 
