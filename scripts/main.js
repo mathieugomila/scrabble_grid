@@ -58,7 +58,7 @@ function add_non_editable_text(nonEditableCaseIndex) {
 
 function add_editable_text(editableCaseIndex) {
     const textElement = document.createElement('div');
-    // textElement.classList.add('grid-item');
+    textElement.classList.add('grid-item');
 
     const inputElement = document.createElement('textarea');
     inputElement.type = 'text';

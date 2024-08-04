@@ -71,6 +71,7 @@ body {
   text-align: center;
   border-radius: 5%;
   resize: none;
+  pointer-events: all;
 }
 
 .grid-item-input.bad {
